@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>مجمع العائلة الوردية - تأجير المقصورات والمكاتب</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+		<style>
+			/* تنسيقات عامة */
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			}
+
+			:root {
+				--primary-color: #e91e63;
+				--primary-dark: #ad1457;
+				--secondary-color: #ffccd5;
+				--light-color: #f9f9f9;
+				--dark-color: #333;
+				--text-color: #444;
+				--shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+				--transition: all 0.3s ease;
+			}
+
+			html {
+				scroll-behavior: smooth;
+			}
+
+			body {
+				background-color: var(--light-color);
+				color: var(--text-color);
+				line-height: 1.6;
+			}
+
+			.container {
+				width: 90%;
+				max-width: 1200px;
+				margin: 0 auto;
+				padding: 0 15px;
+			}
+
+			section {
+				padding: 5rem 0;
+			}
+
+			.section-title {
+				text-align: center;
+				margin-bottom: 3rem;
+			}
+
+			.section-title h2 {
+				font-size: 2.5rem;
+				color: var(--primary-color);
+				margin-bottom: 1rem;
+				position: relative;
+				display: inline-block;
+			}
+
+			.section-title h2::after {
+				content: '';
+				position: absolute;
+				bottom: -10px;
+				right: 50%;
+				transform: translateX(50%);
+				width: 80px;
+				height: 3px;
+				background: var(--primary-color);
+			}
+
+			.section-title p {
+				color: #666;
+				max-width: 700px;
+				margin: 0 auto;
+				font-size: 1.1rem;
+			}
+
+			.btn {
+				display: inline-block;
+				background: var(--primary-color);
+				color: white;
+				padding: 12px 30px;
+				border: none;
+				border-radius: 30px;
+				text-decoration: none;
+				font-weight: bold;
+				transition: var(--transition);
+				cursor: pointer;
+				box-shadow: var(--shadow);
+			}
+
+			.btn:hover {
+				background: var(--primary-dark);
+				transform: translateY(-3px);
+				box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+			}
+
+			/* رأس الصفحة */
+			header {
+				background: rgba(255, 255, 255, 0.95);
+				color: var(--dark-color);
+				padding: 0;
+				box-shadow: var(--shadow);
+				position: fixed;
+				top: 0;
+				right: 0;
+				left: 0;
+				z-index: 1000;
+				transition: var(--transition);
+			}
+
+			.header-content {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 1rem 0;
+			}
+
+			.logo {
+				display: flex;
+				align-items: center;
+			}
+
+			.logo h1 {
+				font-size: 1.8rem;
+				margin-right: 10px;
+				color: var(--primary-color);
+			}
+
+			.logo-icon {
+				font-size: 2rem;
+				color: var(--primary-color);
+			}
+
+			nav ul {
+				display: flex;
+				list-style: none;
+			}
+
+			nav ul li {
+				margin-left: 25px;
+			}
+
+			nav ul li a {
+				color: var(--dark-color);
+				text-decoration: none;
+				font-weight: 600;
+				transition: var(--transition);
+				position: relative;
+				padding: 5px 0;
+			}
+
+			nav ul li a::after {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				width: 0;
+				height: 2px;
+				background: var(--primary-color);
+				transition: var(--transition);
+			}
+
+			nav ul li a:hover {
+				color: var(--primary-color);
+			}
+
+			nav ul li a:hover::after {
+				width: 100%;
+			}
+
+			.mobile-menu {
+				display: none;
+				font-size: 1.5rem;
+				cursor: pointer;
+				color: var(--primary-color);
+			}
+
+			/* قسم البطل */
+			.hero {
+				background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+					url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80')
+						no-repeat center center/cover;
+				height: 100vh;
+				display: flex;
+				align-items: center;
+				text-align: center;
+				color: white;
+				margin-top: 70px;
+			}
+
+			.hero-content {
+				max-width: 800px;
+				margin: 0 auto;
+			}
+
+			.hero h2 {
+				font-size: 3rem;
+				margin-bottom: 1.5rem;
+				animation: fadeInDown 1s ease;
+			}
+
+			.hero p {
+				font-size: 1.3rem;
+				margin-bottom: 2rem;
+				animation: fadeInUp 1s ease;
+			}
+
+			.hero .btn {
+				animation: fadeIn 1.5s ease;
+			}
+
+			/* قسم الخدمات */
+			.services {
+				background-color: white;
+			}
+
+			.services-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 2rem;
+			}
+
+			.service-card {
+				background: white;
+				border-radius: 10px;
+				overflow: hidden;
+				box-shadow: var(--shadow);
+				transition: var(--transition);
+				text-align: center;
+				padding: 2rem 1.5rem;
+				border-top: 4px solid var(--primary-color);
+			}
+
+			.service-card:hover {
+				transform: translateY(-10px);
+				box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+			}
+
+			.service-icon {
+				font-size: 3rem;
+				color: var(--primary-color);
+				margin-bottom: 1.5rem;
+			}
+
+			.service-content h3 {
+				color: var(--primary-color);
+				margin-bottom: 1rem;
+				font-size: 1.5rem;
+			}
+
+			/* قسم المعرض */
+			.gallery {
+				background-color: #f5f5f5;
+			}
+
+			.gallery-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+				gap: 1.5rem;
+			}
+
+			.gallery-item {
+				height: 250px;
+				background-color: #ddd;
+				border-radius: 10px;
+				overflow: hidden;
+				background-size: cover;
+				background-position: center;
+				transition: var(--transition);
+				position: relative;
+				cursor: pointer;
+			}
+
+			.gallery-item:hover {
+				transform: scale(1.05);
+			}
+
+			.gallery-item::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.3);
+				opacity: 0;
+				transition: var(--transition);
+			}
+
+			.gallery-item:hover::after {
+				opacity: 1;
+			}
+
+			/* قسم التواصل */
+			.contact {
+				background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+				color: white;
+			}
+
+			.contact .section-title h2 {
+				color: white;
+			}
+
+			.contact .section-title h2::after {
+				background: white;
+			}
+
+			.contact .section-title p {
+				color: white;
+				font-weight: bold;
+			}
+
+			.contact-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+				gap: 3rem;
+			}
+
+			.contact-info h3 {
+				margin-bottom: 1.5rem;
+				font-size: 1.5rem;
+			}
+
+			.contact-info p {
+				margin-bottom: 1.5rem;
+				display: flex;
+				align-items: center;
+				font-size: 1.1rem;
+			}
+
+			.contact-info i {
+				margin-left: 15px;
+				font-size: 1.2rem;
+				width: 30px;
+			}
+
+			.contact-form input,
+			.contact-form textarea {
+				width: 100%;
+				padding: 15px;
+				margin-bottom: 1.5rem;
+				border: none;
+				border-radius: 5px;
+				font-family: inherit;
+				background: rgba(255, 255, 255, 0.9);
+				transition: var(--transition);
+			}
+
+			.contact-form input:focus,
+			.contact-form textarea:focus {
+				outline: none;
+				background: white;
+				box-shadow: 0 0 0 2px var(--secondary-color);
+			}
+
+			.contact-form textarea {
+				height: 150px;
+				resize: vertical;
+			}
+
+			.contact-form .btn {
+				background: white;
+				color: var(--primary-color);
+			}
+
+			.contact-form .btn:hover {
+				background: var(--secondary-color);
+			}
+
+			/* تذييل الصفحة */
+			footer {
+				background: var(--dark-color);
+				color: white;
+				padding: 3rem 0 1rem;
+			}
+
+			.footer-content {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 2rem;
+				margin-bottom: 2rem;
+			}
+
+			.footer-section h3 {
+				color: var(--primary-color);
+				margin-bottom: 1.5rem;
+				font-size: 1.3rem;
+			}
+
+			.footer-section p,
+			.footer-section li {
+				margin-bottom: 0.8rem;
+				color: #ddd;
+				font-weight: bold;
+			}
+
+			.footer-section ul {
+				list-style: none;
+			}
+
+			.footer-section a {
+				color: #ddd;
+				text-decoration: none;
+				transition: var(--transition);
+			}
+
+			.footer-section a:hover {
+				color: var(--secondary-color);
+				padding-right: 5px;
+			}
+
+			.social-links {
+				display: flex;
+				gap: 15px;
+				margin-top: 1rem;
+			}
+
+			.social-links a {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				width: 40px;
+				height: 40px;
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 50%;
+				transition: var(--transition);
+			}
+
+			.social-links a:hover {
+				background: var(--primary-color);
+				transform: translateY(-5px);
+			}
+
+			.footer-bottom {
+				text-align: center;
+				padding-top: 1.5rem;
+				border-top: 1px solid #444;
+				color: #aaa;
+			}
+
+			/* تصميم متجاوب */
+			@media (max-width: 992px) {
+				.hero h2 {
+					font-size: 2.5rem;
+				}
+
+				.hero p {
+					font-size: 1.1rem;
+				}
+			}
+
+			@media (max-width: 768px) {
+				.mobile-menu {
+					display: block;
+				}
+
+				nav {
+					position: fixed;
+					top: 70px;
+					right: -100%;
+					background: white;
+					width: 80%;
+					height: calc(100vh - 70px);
+					transition: var(--transition);
+					box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+				}
+
+				nav.active {
+					right: 0;
+				}
+
+				nav ul {
+					flex-direction: column;
+					padding: 2rem;
+				}
+
+				nav ul li {
+					margin: 0 0 1.5rem 0;
+				}
+
+				.hero h2 {
+					font-size: 2rem;
+				}
+
+				.section-title h2 {
+					font-size: 2rem;
+				}
+			}
+
+			@media (max-width: 576px) {
+				.hero {
+					height: 80vh;
+				}
+
+				.hero h2 {
+					font-size: 1.8rem;
+				}
+
+				.section-title h2 {
+					font-size: 1.8rem;
+				}
+
+				.services-grid,
+				.gallery-grid {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			/* Animations */
+			@keyframes fadeInDown {
+				from {
+					opacity: 0;
+					transform: translateY(-30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeInUp {
+				from {
+					opacity: 0;
+					transform: translateY(30px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+
+			/* قسم الموقع */
+			.location {
+				background: white;
+				color: var(--text-color);
+			}
+
+			.location .section-title h2 {
+				color: var(--primary-color);
+			}
+
+			.location .section-title h2::after {
+				background: var(--primary-color);
+			}
+
+			.location .section-title p {
+				color: var(--text-color);
+			}
+
+			.location-container {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 3rem;
+				align-items: center;
+			}
+
+			.location-info h3 {
+				color: var(--primary-color);
+				margin-bottom: 1rem;
+				font-size: 1.5rem;
+			}
+
+			.location-info p {
+				color: var(--text-color);
+				margin-bottom: 1rem;
+				line-height: 1.8;
+				font-size: 1.1rem;
+				font-weight: bold;
+			}
+
+			.location-info i {
+				color: var(--primary-color);
+				margin-left: 10px;
+				width: 20px;
+			}
+
+			.directions-btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background: var(--primary-color);
+				color: white;
+				padding: 12px 25px;
+				border-radius: 25px;
+				text-decoration: none;
+				font-weight: bold;
+				margin-top: 1rem;
+				transition: var(--transition);
+				box-shadow: var(--shadow);
+			}
+
+			.directions-btn:hover {
+				background: var(--primary-dark);
+				transform: translateY(-2px);
+				box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+			}
+
+			.directions-btn i {
+				margin-left: 8px;
+				font-size: 1.1rem;
+				color: white;
+			}
+
+			.map-container {
+				position: relative;
+				height: 400px;
+				border-radius: 15px;
+				overflow: hidden;
+				box-shadow: var(--shadow);
+				cursor: pointer;
+				transition: var(--transition);
+			}
+
+			.map-container:hover {
+				transform: scale(1.02);
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+			}
+
+			.map-container iframe {
+				width: 100%;
+				height: 100%;
+				border: none;
+				border-radius: 15px;
+			}
+
+			@media (max-width: 768px) {
+				.location-container {
+					grid-template-columns: 1fr;
+					gap: 2rem;
+				}
+
+				.map-container {
+					height: 300px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- رأس الصفحة -->
+		<header id="header">
+			<div class="container">
+				<div class="header-content">
+					<div class="logo">
+						<h1>مجمع العائلة الوردية</h1>
+						&nbsp;&nbsp;&nbsp;
+						<div class="logo-icon"><i class="fas fa-building"></i></div>
+					</div>
+					<div class="mobile-menu">
+						<i class="fas fa-bars"></i>
+					</div>
+					<nav id="navbar">
+						<ul>
+							<li><a href="#home">الرئيسية</a></li>
+							<li><a href="#services">خدماتنا</a></li>
+							<li><a href="#gallery">معرض الصور</a></li>
+							<li><a href="#location">موقعنا</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		<!-- قسم البطل -->
+		<section class="hero" id="home">
+			<div class="container">
+				<div class="hero-content">
+					<h2>مرحباً بكم في مجمع العائلة الوردية</h2>
+					<p>وجهتكم المثالية لتأجير المقصورات والمكاتب بمواصفات عالية وأسعار منافسة</p>
+					<a href="#contact" class="btn">احجز الآن</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- قسم الخدمات -->
+		<section class="services" id="services">
+			<div class="container">
+				<div class="section-title">
+					<h2>خدماتنا</h2>
+					<p>نقدم لكم مجموعة متنوعة من الخدمات لتلبية احتياجاتكم في تأجير المساحات المكتبية والمقصورات</p>
+				</div>
+				<div class="services-grid">
+					<div class="service-card">
+						<div class="service-icon">
+							<i class="fas fa-cube"></i>
+						</div>
+						<div class="service-content">
+							<h3>تأجير المقصورات</h3>
+							<p>مقصورات مجهزة بالكامل بمساحات مختلفة تناسب احتياجاتكم، مع خدمات الصيانة والدعم الفني.</p>
+						</div>
+					</div>
+					<div class="service-card">
+						<div class="service-icon">
+							<i class="fas fa-building"></i>
+						</div>
+						<div class="service-content">
+							<h3>تأجير المكاتب</h3>
+							<p>مكاتب فاخرة مجهزة بأحدث التقنيات، مثالية للشركات الناشئة والمهنيين المستقلين.</p>
+						</div>
+					</div>
+					<div class="service-card">
+						<div class="service-icon">
+							<i class="fas fa-users"></i>
+						</div>
+						<div class="service-content">
+							<h3>قاعات الاجتماعات</h3>
+							<p>قاعات متعددة الأحجام مجهزة بأحدث وسائل العرض والتقنيات الصوتية لاجتماعاتكم المهمة.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- قسم المعرض -->
+		<section class="gallery" id="gallery">
+			<div class="container">
+				<div class="section-title">
+					<h2>معرض الصور</h2>
+					<p>تصفح بعضاً من مساحات العمل التي نقدمها في مجمع العائلة الوردية</p>
+				</div>
+				<div class="gallery-grid">
+					<div
+						class="gallery-item"
+						style="
+							background-image: url('https://lh3.googleusercontent.com/p/AF1QipO8Icye7YVAVb78QeOrP_Y0RpTpMSmZ62whBQtO=s1360-w1360-h1020-rw');
+						"
+					></div>
+					<div
+						class="gallery-item"
+						style="
+							background-image: url('https://lh3.googleusercontent.com/p/AF1QipPRKyoSX0du_SS-J5SkSLcMn7cep3-bgJEtNaWU=s1360-w1360-h1020-rw');
+						"
+					></div>
+					<div
+						class="gallery-item"
+						style="
+							background-image: url('https://lh3.googleusercontent.com/p/AF1QipPhEq_QKUlrjIGdY16w2m055_JfWj3b12rtaX7M=s1360-w1360-h1020-rw');
+						"
+					></div>
+					<div
+						class="gallery-item"
+						style="
+							background-image: url('https://lh3.googleusercontent.com/p/AF1QipPpsTp7iiaD9R2LD3725L94kqh212ePOjO3K-Mq=s1360-w1360-h1020-rw');
+						"
+					></div>
+					<!-- <div
+						class="gallery-item"
+						style="
+							background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1558&q=80');
+						"
+					></div>
+					<div
+						class="gallery-item"
+						style="
+							background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1558&q=80');
+						"
+					></div> -->
+				</div>
+			</div>
+		</section>
+
+		<!-- قسم الموقع -->
+		<section class="location" id="location">
+			<div class="container">
+				<div class="section-title">
+					<h2>موقعنا</h2>
+					<p>تجدونا في موقع متميز سهل الوصول إليه</p>
+				</div>
+				<div class="location-container">
+					<div class="location-info">
+						<h3>مجمع العائلة الوردية</h3>
+						<p>
+							<i class="fas fa-map-marker-alt"></i> العنوان الكامل: عمان, حي نزال, شارع الدستور, بجانب محامص كابولي
+						</p>
+						<p><i class="fas fa-phone"></i> الهاتف: 0780250433</p>
+
+						<p><i class="fas fa-car"></i> سهولة الوصول بالسيارة مع مواقف مجانية</p>
+						<p><i class="fas fa-bus"></i> متاح بوسائل النقل العام</p>
+						<p><i class="fas fa-clock"></i> مفتوح على مدار الساعة</p>
+
+						<a
+							href="https://www.google.com/maps/place/%D9%85%D8%AC%D9%85%D8%B9+%D8%A7%D9%84%D8%B9%D8%A7%D8%A6%D9%84%D8%A9+%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A%D8%A9%E2%80%AD/@31.9324335,35.9136889,491m/data=!3m1!1e3!4m14!1m7!3m6!1s0x151ca1b6fe1d1929:0xa970b5804a38da7b!2z2YXYrNmF2Lkg2KfZhNi52KfYptmE2Kkg2KfZhNmI2LHYr9mK2Kk!8m2!3d31.9331375!4d35.9130688!16s%2Fg%2F11y07qrmjk!3m5!1s0x151ca1b6fe1d1929:0xa970b5804a38da7b!8m2!3d31.9331375!4d35.9130688!16s%2Fg%2F11y07qrmjk?hl=en-GB&entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D"
+							target="_blank"
+							class="directions-btn"
+						>
+							<i class="fas fa-directions"></i>
+							احصل على الاتجاهات
+						</a>
+					</div>
+					<div class="map-container">
+						<iframe
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3469.123456789!2d35.9130688!3d31.9331375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151ca1b6fe1d1929%3A0xa970b5804a38da7b!2z2YXYrNmF2Lkg2KfZhNi52KfYptmE2Kkg2KfZhNmI2LHYr9mK2Kk!5e0!3m2!1sar!2s!4v1696781234567!5m2!1sar!2s"
+							title="خريطة موقع مجمع العائلة الوردية"
+							allowfullscreen=""
+							loading="lazy"
+							referrerpolicy="no-referrer-when-downgrade"
+						>
+						</iframe>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- تذييل الصفحة -->
+		<footer>
+			<div class="container">
+				<div class="footer-content">
+					<div class="footer-section">
+						<h3>مجمع العائلة الوردية</h3>
+						<p>وجهتكم المثالية لتأجير المقصورات والمكاتب بمواصفات عالية وأسعار منافسة.</p>
+						<div class="social-links">
+							<!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
+							<a href="#"><i class="fab fa-twitter"></i></a>
+							<a href="#"><i class="fab fa-instagram"></i></a>
+							<a href="#"><i class="fab fa-linkedin-in"></i></a> -->
+						</div>
+					</div>
+					<div class="footer-section">
+						<h3>روابط سريعة</h3>
+						<ul>
+							<li><a href="#home">الرئيسية</a></li>
+							<li><a href="#services">خدماتنا</a></li>
+							<li><a href="#gallery">معرض الصور</a></li>
+							<li><a href="#location">موقعنا</a></li>
+							<li><a href="#location">اتصل بنا</a></li>
+						</ul>
+					</div>
+					<div class="footer-section">
+						<h3>الخدمات</h3>
+						<ul>
+							<li><a href="#">تأجير المقصورات</a></li>
+							<li><a href="#">تأجير المكاتب</a></li>
+							<li><a href="#">قاعات الاجتماعات</a></li>
+							<li><a href="#">المساحات المشتركة</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<p>جميع الحقوق محفوظة &copy; 2025 مجمع العائلة الوردية</p>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			// شريط التنقل الثابت
+			window.addEventListener('scroll', function () {
+				const header = document.getElementById('header');
+				if (window.scrollY > 100) {
+					header.style.background = 'rgba(255, 255, 255, 0.98)';
+					header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+				} else {
+					header.style.background = 'rgba(255, 255, 255, 0.95)';
+					header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+				}
+			});
+
+			// القائمة المتنقلة
+			const mobileMenu = document.querySelector('.mobile-menu');
+			const nav = document.getElementById('navbar');
+
+			mobileMenu.addEventListener('click', function () {
+				nav.classList.toggle('active');
+			});
+
+			// إغلاق القائمة عند النقر على رابط
+			const navLinks = document.querySelectorAll('nav ul li a');
+			navLinks.forEach((link) => {
+				link.addEventListener('click', function () {
+					nav.classList.remove('active');
+				});
+			});
+
+			// نموذج التواصل
+			const contactForm = document.getElementById('contactForm');
+			contactForm.addEventListener('submit', function (e) {
+				e.preventDefault();
+				alert('شكراً لتواصلكم معنا! سنرد عليكم في أقرب وقت ممكن.');
+				contactForm.reset();
+			});
+
+			// النقر على الخريطة لفتح Google Maps
+			const mapContainer = document.querySelector('.map-container');
+			if (mapContainer) {
+				mapContainer.addEventListener('click', function () {
+					window.open(
+						'https://www.google.com/maps/place/%D9%85%D8%AC%D9%85%D8%B9+%D8%A7%D9%84%D8%B9%D8%A7%D8%A6%D9%84%D8%A9+%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A%D8%A9%E2%80%AD/@31.9324335,35.9136889,491m/data=!3m1!1e3!4m14!1m7!3m6!1s0x151ca1b6fe1d1929:0xa970b5804a38da7b!2z2YXYrNmF2Lkg2KfZhNi52KfYptmE2Kkg2KfZhNmI2LHYr9mK2Kk!8m2!3d31.9331375!4d35.9130688!16s%2Fg%2F11y07qrmjk!3m5!1s0x151ca1b6fe1d1929:0xa970b5804a38da7b!8m2!3d31.9331375!4d35.9130688!16s%2Fg%2F11y07qrmjk?hl=en-GB&entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D',
+						'_blank'
+					);
+				});
+			}
+		</script>
+	</body>
+</html>
